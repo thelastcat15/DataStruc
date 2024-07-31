@@ -25,7 +25,7 @@ public:
 		if (pos > -1) {
 			cout << arr[pos] << endl;
 		} else {
-			cout << "Emply" << endl;
+			cout << "Empty" << endl;
 		}
 	}
 	void showall() {
@@ -35,7 +35,7 @@ public:
 			}
 			cout << endl;
 		} else {
-			cout << "Emply" << endl;
+			cout << "Empty" << endl;
 		}
 	}
 	void showsize() {
