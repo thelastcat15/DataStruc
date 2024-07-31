@@ -18,7 +18,7 @@ public:
 			arr[pos] = -1;
 			pos--;
 		} else {
-			cout << "Emply" << endl;
+			cout << "Empty" << endl;
 		}
 	}
 	void top() {
