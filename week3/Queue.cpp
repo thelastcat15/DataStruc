@@ -12,7 +12,7 @@ public:
 		return ((tail+1)%size) == (head%size);
 	}
 	
-	int emply() {
+	int empty() {
 		return (tail%size) == (head%size);
 	}
 	
@@ -26,12 +26,12 @@ public:
 	}
 	
 	void pop() {
-		if (!emply()) {
+		if (!empty()) {
 			int temp = head;
 			head++;
 			cout << arr[temp%size] << endl;
 		} else {
-			cout << "Emply" << endl;
+			cout << "Empty" << endl;
 		}
 	}
 	
