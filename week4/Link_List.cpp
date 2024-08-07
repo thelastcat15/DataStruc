@@ -125,9 +125,3 @@ int main() {
 		else if (temp == 'E') break;
 	}
 }
-
-
-
-
-
-
