@@ -35,28 +35,36 @@ class LinkList {
 				if (head->id == PointNode->id) {
 					head = currNode;
 				}
+			} else if (mode == 'M') {	// Force Connect
+				PointNode->next = currNode;
+				currNode->previous = PointNode;
 			}
 		}
 		
 		void push(int search_id, int id, char mode) {
 			Node* current = new Node(id);
 			if (head) {
-				for (Node* temp=head; (temp && (temp->next==NULL)); temp=temp->next) {
-					if (temp->id == search_id) {
+				for (Node* temp=head; temp; temp=temp->next) {
+					// cout << temp->id << " " << id << " " << (temp->id == id) << endl;
+					if (temp->id == id) {
 						cout << "[Error] Duplicate ID" << endl;
 						return;
 					}
 				}
-				for (Node* temp=head; (temp && (temp->next==NULL)); temp=temp->next) {
+				Node* temp = head;
+				while (temp) {
 					if (temp->id == search_id) {
-						Node* current = new Node(id);
 						connector(temp, current, mode);
 						print();
 						return;
 					}
+					if (temp->next == NULL) break;
+					else temp = temp->next;
 				}
+				connector(temp, current, 'A');
+			} else {
+				head = current;
 			}
-			head = current;
 			print();
 		}
 		
@@ -67,18 +75,29 @@ class LinkList {
 				} else {
 					head = NULL;
 				}
-				return;
-			}
-			for (Node* temp=head->next; (temp && (temp->next==NULL)); temp=temp->next) {
-				if (temp->id == search_id) {
+			} else {
+				Node* temp = head;
+				while (temp) {
+					if (temp->id == search_id) break; // Found
+					else temp = temp->next;
+				}
+				if (temp) {
+					if (temp->previous && temp->next) { 					// Check Left & Right
+						connector(temp->previous, temp->next, 'M'); // Connect
+					} else if (temp->previous) {									// Check Left
+						temp->previous->next = NULL;
+					} else if (temp->next) {											// Check Right
+						temp->next->previous = NULL;
+					}
+
 					delete temp;
-					return;
 				}
 			}
+			print();
 		}
 		
 		void print() {
-			for (Node* temp=head; (temp && (temp->next==NULL)); temp=temp->next) {
+			for (Node* temp=head; temp; temp=temp->next) {
 				cout << (temp->id) << " ";
 			}
 			cout << "\n";
@@ -92,16 +111,17 @@ int main() {
 		char temp;
 		cin >> temp;
 		if (temp == 'A' || temp == 'I') {
-			int id, pos;
+			int id, search_id;
 			cin >> id;
-			cin >> pos;
-			MyList->push(pos, id, temp);
+			cin >> search_id;
+			MyList->push(search_id, id, temp);
 		}
 		else if (temp == 'D') {
-			int id;
-			cin >> id;
-			MyList->del(id);
+			int search_id;
+			cin >> search_id;
+			MyList->del(search_id);
 		}
+		else if (temp == 'P') MyList->print();
 		else if (temp == 'E') break;
 	}
 }
