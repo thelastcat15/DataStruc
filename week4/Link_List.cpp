@@ -18,14 +18,14 @@ class LinkList {
 	Node* head = NULL;
 	public:
 		void connector(Node* PointNode, Node* currNode,int mode) {
-			if (mode == 'A') {	// PointNode was before CurrNode
+			if (mode == 'A') {	// PointNode before CurrNode
 				if (PointNode->next) {
 					PointNode->next->previous = currNode;
 					currNode->next = PointNode->next;
 				}
 				currNode->previous = PointNode;
 				PointNode->next = currNode;
-			} else if (mode == 'I') {	// PointNode was after CurrNode
+			} else if (mode == 'I') {	// PointNode after CurrNode
 				if (PointNode->previous) {
 					PointNode->previous->next = currNode;
 					currNode->previous = PointNode->previous;
